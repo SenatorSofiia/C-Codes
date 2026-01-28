@@ -1,0 +1,136 @@
+#include <iostream>
+#include <limits> // Для використання констант INT_MAX і INT_MIN
+
+// Константа для розміру масиву
+const int ARRAY_LENGTH = 10;
+
+// Оголошення функцій
+void inputArray(int array[], int length);
+void outputArray(const int array[], int length);
+int findMin(const int array[], int length);
+int findMax(const int array[], int length);
+double calculateAverage(const int array[], int length);
+void sortArray(int array[], int length);
+
+// Функція для відображення меню
+void displayMenu();
+
+int main() {
+    int array[ARRAY_LENGTH]; // Масив для зберігання елементів
+    bool isInitialized = false; // Флаг, що визначає, чи був масив ініціалізований
+    int choice;
+
+    while (true) {
+        displayMenu();
+        std::cin >> choice;
+
+        // Перевірка, чи був масив ініціалізований при виборі операцій над ним
+        if (!isInitialized && (choice != 1 && choice != 7)) {
+            std::cout << "Error: Array must be initialized first!" << std::endl;
+            continue;
+        }
+
+        switch (choice) {
+            case 1:
+                inputArray(array, ARRAY_LENGTH);
+                isInitialized = true;
+                break;
+            case 2:
+                outputArray(array, ARRAY_LENGTH);
+                break;
+            case 3:
+                std::cout << "Minimum value: " << findMin(array, ARRAY_LENGTH) << std::endl;
+                break;
+            case 4:
+                std::cout << "Maximum value: " << findMax(array, ARRAY_LENGTH) << std::endl;
+                break;
+            case 5:
+                std::cout << "Arithmetic average: " << calculateAverage(array, ARRAY_LENGTH) << std::endl;
+                break;
+            case 6:
+                sortArray(array, ARRAY_LENGTH);
+                std::cout << "The array is sorted." << std::endl;
+                break;
+            case 7:
+                std::cout << "Exiting the program." << std::endl;
+                return 0;
+            default:
+                std::cout << "Invalid choise. Try again." << std::endl;
+        }
+    }
+    return 0;
+}
+
+// Функція для введення елементів масиву
+void inputArray(int array[], int length) {
+    std::cout << "Enter " << length << " values for array:" << std::endl;
+    for (int i = 0; i < length; ++i) {
+        std::cin >> array[i];
+    }
+}
+
+// Функція для виведення елементів масиву
+void outputArray(const int array[], int length) {
+    std::cout << "Array elements: ";
+    for (int i = 0; i < length; ++i) {
+        std::cout << array[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
+// Функція для пошуку мінімального значення
+int findMin(const int array[], int length) {
+    int min = INT_MAX;
+    for (int i = 0; i < length; ++i) {
+        if (array[i] < min) {
+            min = array[i];
+        }
+    }
+    return min;
+}
+
+// Функція для пошуку максимального значення
+int findMax(const int array[], int length) {
+    int max = INT_MIN;
+    for (int i = 0; i < length; ++i) {
+        if (array[i] > max) {
+            max = array[i];
+        }
+    }
+    return max;
+}
+
+// Функція для обчислення середнього арифметичного значення
+double calculateAverage(const int array[], int length) {
+    int sum = 0;
+    for (int i = 0; i < length; ++i) {
+        sum += array[i];
+    }
+    return static_cast<double>(sum) / length;
+}
+
+// Функція для сортування масиву (метод бульбашки)
+void sortArray(int array[], int length) {
+    for (int i = 0; i < length - 1; ++i) {
+        for (int j = 0; j < length - i - 1; ++j) {
+            if (array[j] > array[j + 1]) {
+                // Обмін елементів
+                int temp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = temp;
+            }
+        }
+    }
+}
+
+// Функція для відображення меню
+void displayMenu() {
+    std::cout << "\n Choose operation" << std::endl;
+    std::cout << "1) Enter the values of the array elements" << std::endl;
+    std::cout << "2) Output the values of the array elements" << std::endl;
+    std::cout << "3) Calculation of the minimum value" << std::endl;
+    std::cout << "4) Calculation of the maximum value" << std::endl;
+    std::cout << "5) Calculation of the arithmetic mean" << std::endl;
+    std::cout << "6) Sort the array" << std::endl;
+    std::cout << "7) Exit" << std::endl;
+}
