@@ -1,0 +1,132 @@
+#include <iostream>
+#include <vector>
+#include <algorithm> // Для сортування
+using namespace std;
+
+
+// Перерахування для типу транспортного засобу
+enum VehicleType { Car, Truck, Bus };
+
+
+// Структура для опису транспортного засобу
+struct Vehicle {
+    string brand;
+    VehicleType type;
+    int enginePower;
+};
+
+
+// Функція для перетворення типу у рядок для виводу
+string vehicleTypeToString(VehicleType type) {
+    switch (type) {
+        case Car: return "Car";
+        case Truck: return "Truck";
+        case Bus: return "Bus";
+        default: return "Unknown";
+    }
+}
+
+
+//Функція для виводу інформації про транспортний засіб
+void printVehicle(const Vehicle& v) {
+    cout << "Brand: " << v.brand << endl;
+    cout << "Type: " << vehicleTypeToString(v.type) << endl;
+    cout << "Engine Power: " << v.enginePower << " HP" << endl;
+}
+
+
+//Функція для заповнення даних транспортного засобу через введення користувачем
+Vehicle inputVehicle() {
+    Vehicle v;
+    int typeInput;
+
+
+    cout << "Enter brand: ";
+    cin >> v.brand;
+
+
+    cout << "Enter type (0 - Car, 1 - Truck, 2 - Bus): ";
+    cin >> typeInput;
+    v.type = static_cast<VehicleType>(typeInput);
+
+
+    cout << "Enter engine power (HP): ";
+    cin >> v.enginePower;
+
+
+    return v;
+}
+
+
+// Функція для сортування масиву транспортних засобів за потужністю двигуна (за зростанням)
+bool compareByEnginePower(const Vehicle& a, const Vehicle& b) {
+    return a.enginePower < b.enginePower;
+}
+
+
+// Функція для фільтрації транспортних засобів за типом
+vector<Vehicle> filterByType(const vector<Vehicle>& vehicles, VehicleType type) {
+    vector<Vehicle> result;
+    for (const auto& v : vehicles) {
+        if (v.type == type) {
+            result.push_back(v);
+        }
+    }
+    return result;
+}
+
+
+int main() {
+    int n;
+    cout << "Enter the number of vehicles: ";
+    cin >> n;
+
+
+    vector<Vehicle> vehicles(n);
+   
+    // Заповнення масиву структур через введення користувачем
+    for (int i = 0; i < n; ++i) {
+        cout << "Enter details for vehicle " << i + 1 << ":" << endl;
+        vehicles[i] = inputVehicle();
+    }
+
+
+    // Виведення всіх транспортних засобів
+    cout << "\nAll Vehicles:" << endl;
+    for (const auto& v : vehicles) {
+        printVehicle(v);
+        cout << "------------------" << endl;
+    }
+
+
+    // Сортування за потужністю двигуна
+    sort(vehicles.begin(), vehicles.end(), compareByEnginePower);
+
+
+    cout << "\nVehicles sorted by engine power:" << endl;
+    for (const auto& v : vehicles) {
+        printVehicle(v);
+        cout << "------------------" << endl;
+    }
+
+
+    // Фільтрація за типом
+    int filterType;
+    cout << "\nEnter type to filter by (0 - Car, 1 - Truck, 2 - Bus): ";
+    cin >> filterType;
+    VehicleType selectedType = static_cast<VehicleType>(filterType);
+
+
+    vector<Vehicle> filteredVehicles = filterByType(vehicles, selectedType);
+
+
+    cout << "\nFiltered Vehicles:" << endl;
+    for (const auto& v : filteredVehicles) {
+        printVehicle(v);
+        cout << "------------------" << endl;
+    }
+
+
+    return 0;
+}
+
