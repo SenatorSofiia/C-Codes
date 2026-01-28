@@ -1,0 +1,85 @@
+#include <iostream>
+#include <limits>
+#include <string>
+#include <cctype>
+
+// Функція для введення булевого значення (0 або 1)
+bool getBoolValue() {
+    int value;
+    std::cout << "Enter boolean value (0 or 1): ";
+    while (true) {
+        std::cin >> value;
+        if (value == 0 || value == 1) {
+            return value;
+        } else {
+            std::cout << "Invalid input. Please enter 0 or 1: ";
+        }
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+}
+
+// Функція для введення символу в діапазоні 'a'-'f'
+char getCharValue() {
+    std::string input;
+    std::cout << "Enter a char value (a, b, c, d, e, f): ";
+    while (true) {
+        std::cin >> input;
+        if (input.length() == 1 && input[0] >= 'a' && input[0] <= 'f') {
+            return input[0];
+        } else {
+            std::cout << "Invalid input. Please enter a single char from 'a' to 'f': ";
+        }
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+}
+
+// Функція для введення дійсного числа (float)
+float getFloatValue() {
+    float value;
+    std::cout << "Enter a float value: ";
+    while (true) {
+        std::cin >> value;
+        if (std::cin.fail()) {
+            std::cout << "Invalid input. Please enter a valid float: ";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        } else {
+            return value;
+        }
+    }
+}
+
+// Функція для введення цілого числа типу short
+short getShortValue() {
+    int value;
+    std::cout << "Enter a short value (-32767 to 32767): ";
+    while (true) {
+        std::cin >> value;
+        if (value >= -32767 && value <= 32767) {
+            return static_cast<short>(value);
+        } else {
+            std::cout << "Invalid input. Please enter a value between -32767 and 32767: ";
+        }
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+}
+
+int main() {
+    bool boolValue = getBoolValue();
+    std::cout << "Successfully received boolean value: " 
+              << (boolValue ? "true" : "false") << std::endl;
+
+    char charValue = getCharValue();
+    std::cout << "Successfully received char value: " << charValue << std::endl;
+
+    float floatValue = getFloatValue();
+    std::cout << "Successfully received float value: " << floatValue << std::endl;
+
+    short shortValue = getShortValue();
+    std::cout << "Successfully received short value: " << shortValue << std::endl;
+
+    return 0;
+}
