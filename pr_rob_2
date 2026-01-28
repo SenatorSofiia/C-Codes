@@ -1,0 +1,59 @@
+#include <iostream>
+
+int main ()
+{
+    int a, b, c ;
+    char diya ;
+while (true)
+    {
+    std::cout << "Enter diya (0 - exit)" << std::endl; //зчитуємо виконувану дію
+    std::cin >> diya;
+    std::cout << "Enter first chyslo" << std::endl; //зчитуємо перше число
+    std::cin >> a;
+    std::cout << "Enter second chyslo" << std::endl; //зчитуємо друге число
+    std::cin >> b;
+    
+        switch ( diya ) //створюємо оператор для роботи
+        {
+            case '+': //створюємо кейс стейтментів для дії додавання
+            {
+                c=a+b;
+                std::cout << a << "+" << b << "=" << c << std::endl;
+                break;
+            }
+            case '-': //створюємо кейс стейтментів для дії віднімання
+            {
+                c=a-b;
+                std::cout << a << "-" << b << "=" << c << std::endl;
+                break;
+            }
+            case '*': //створюємо кейс стейтментів для дії множення
+            {
+                c=a*b;
+                std::cout << a << "*" << b << "=" << c << std::endl;
+                break;
+            }
+            case '/': //створюємо кейс стейтментів для дії ділення
+            {
+                if (b == 0)
+                    std::cout << "You can't devide to 0" << std::endl; //зазначаємо, що ділення на 0 неможливе 
+                else (b != 0);
+                    c=a/b;
+                    std::cout << a << "/" << b << "=" << c << std::endl;
+                    break;
+            }
+            case '0':
+            {
+                std::cout << "Exit..." << std::endl; //створюємо кейс для виходу з програми
+                return 0;
+            break;
+        break;
+    break;
+break;
+            }
+            default: 
+                std::cout << "Error..." << std::endl; //створюємо кейс для помилкових значень
+                break;
+        }
+    }
+}
